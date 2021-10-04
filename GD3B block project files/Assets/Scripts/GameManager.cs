@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     bool waterCollected;
     bool woodCollected;
+    bool fishCaught;
 
     public bool collectWaterEnabled;
     public GameObject collectWaterPrompt;
@@ -27,6 +28,10 @@ public class GameManager : MonoBehaviour
     public bool collectWoodEnabled;
     public GameObject collectWoodPrompt;
     public GameObject collectingWood;
+
+    public GameObject hasWater;
+    public GameObject hasFish;
+    public GameObject hasWood;
 
     public CharacterController controller;
 
@@ -97,7 +102,16 @@ public class GameManager : MonoBehaviour
             collectWoodPrompt.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                CollectWood();
+                if (woodCollected)
+                {
+                    Debug.Log("ALREADY COLLECTED WOOD");
+                }
+
+                else
+                {
+                    CollectWood();
+                }
+                
             }
         }
 
@@ -111,7 +125,16 @@ public class GameManager : MonoBehaviour
             collectWaterPrompt.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                CollectWater();
+                if (waterCollected)
+                {
+                    Debug.Log("ALREADY COLLECTED WATER");
+                }
+
+                else
+                {
+                    CollectWater();
+                }
+                
             }
         }
 
@@ -119,6 +142,12 @@ public class GameManager : MonoBehaviour
         {
             collectWaterPrompt.SetActive(false);
         }
+
+        /// PLAYER HAS RESOURCES UI
+        hasWater.SetActive(waterCollected);
+        hasWood.SetActive(woodCollected);
+        hasFish.SetActive(fishCaught);
+
     }
 
     public void CollectWater()  //activated when clicking collect water button

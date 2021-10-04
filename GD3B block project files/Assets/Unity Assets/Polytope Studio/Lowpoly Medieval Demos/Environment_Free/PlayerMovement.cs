@@ -18,6 +18,12 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
 
+    public GameObject plant1_Icon;
+    public GameObject plant2_Icon;
+    public GameObject plant3_Icon;
+
+
+
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -76,6 +82,24 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Wood")
         {
             GM.collectWoodEnabled = false;
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "plant1")
+        {
+            plant1_Icon.SetActive(true);
+        }
+
+        if (collision.gameObject.tag == "plant2")
+        {
+            plant2_Icon.SetActive(true);
+        }
+
+        if(collision.gameObject.tag == "plant3")
+        {
+            plant3_Icon.SetActive(true);
         }
     }
 }

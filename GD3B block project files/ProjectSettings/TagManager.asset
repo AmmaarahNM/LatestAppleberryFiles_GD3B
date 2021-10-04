@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Water
+  - Camp Location
+  - plant1
   layers:
   - Default
   - TransparentFX

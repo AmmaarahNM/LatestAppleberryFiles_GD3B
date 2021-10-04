@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
 
     public CharacterController controller;
 
+    public GameObject compass;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +46,15 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.C))
+        {
+            compass.SetActive(true);
+        }
+
+        else
+        {
+            compass.SetActive(false);
+        }
         /// CONDITION BARS DECREASING OVER TIME
         if (fed > 1 && !isEating) //&& no increase bools are true or something like that
         {

@@ -7,6 +7,7 @@ TagManager:
   - Water
   - Camp Location
   - plant1
+  - Wood
   layers:
   - Default
   - TransparentFX

@@ -34,8 +34,14 @@ public class GameManager : MonoBehaviour
     public GameObject hasWood;
 
     public CharacterController controller;
+    public PlayerMovement PM;
 
     public GameObject compass;
+
+    public GameObject journal;
+    public bool journalOpen;
+    public MouseLook ML;
+    public GameObject journalPrompt;
 
     // Start is called before the first frame update
     void Start()
@@ -46,6 +52,28 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            journalPrompt.SetActive(false);
+            if (journalOpen)
+            {
+                journalOpen = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+
+            else
+            {
+                journalOpen = true;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+
+        journal.SetActive(journalOpen);
+        PM.enabled = !journalOpen;
+        ML.enabled = !journalOpen;
+
         if (Input.GetKey(KeyCode.C))
         {
             compass.SetActive(true);
@@ -56,19 +84,19 @@ public class GameManager : MonoBehaviour
             compass.SetActive(false);
         }
         /// CONDITION BARS DECREASING OVER TIME
-        if (fed > 1 && !isEating) //&& no increase bools are true or something like that
+        if (fed > 1 && !isEating && !journalOpen) //&& no increase bools are true or something like that
         {
             fed -= Time.deltaTime;
         }
         fedBar.fillAmount = fed / 100;
 
-        if (hydrated > 1 && !isDrinking)
+        if (hydrated > 1 && !isDrinking && !journalOpen)
         {
             hydrated -= Time.deltaTime;
         }
         hydratedBar.fillAmount = hydrated / 100;
 
-        if (energy > 1 && !isResting)
+        if (energy > 1 && !isResting && !journalOpen)
         {
             energy -= Time.deltaTime;
         }

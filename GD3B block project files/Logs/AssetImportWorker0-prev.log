@@ -15,11 +15,11 @@ C:/Users/Sherr/Documents/GitHub Repos/LatestAppleberryFiles_GD3B/GD3B block proj
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-58186
+50688
 Successfully changed project path to: C:/Users/Sherr/Documents/GitHub Repos/LatestAppleberryFiles_GD3B/GD3B block project files
 C:/Users/Sherr/Documents/GitHub Repos/LatestAppleberryFiles_GD3B/GD3B block project files
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 18.51 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 19.25 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2021.1.15f1 (e767a7370072)
 [Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/2021.1.15f1/Editor/Data/Resources/UnitySubsystems
@@ -35,77 +35,77 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/2021.1.15f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/2021.1.15f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/Unity/Hub/Editor/2021.1.15f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56516
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56156
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/Unity/Hub/Editor/2021.1.15f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.001391 seconds.
+Registered in 0.001332 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 19.07 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 18.67 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.837 seconds
+- Completed reload, in  0.829 seconds
 Domain Reload Profiling:
-	ReloadAssembly (837ms)
+	ReloadAssembly (830ms)
 		BeginReloadAssembly (37ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
 			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (267ms)
-			LoadAssemblies (35ms)
+		EndReloadAssembly (261ms)
+			LoadAssemblies (36ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (104ms)
+			SetupTypeCache (102ms)
 			ReleaseScriptCaches (0ms)
 			RebuildScriptCaches (18ms)
-			SetupLoadedEditorAssemblies (113ms)
+			SetupLoadedEditorAssemblies (110ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (4ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (19ms)
 				BeforeProcessingInitializeOnLoad (1ms)
 				ProcessInitializeOnLoadAttributes (66ms)
-				ProcessInitializeOnLoadMethodAttributes (22ms)
+				ProcessInitializeOnLoadMethodAttributes (20ms)
 				AfterProcessingInitializeOnLoad (0ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.002629 seconds.
+Registered in 0.002776 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 0.28 ms, found 2 plugins.
+Refreshing native plugins compatible for Editor in 0.29 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  0.624 seconds
+- Completed reload, in  0.670 seconds
 Domain Reload Profiling:
-	ReloadAssembly (625ms)
-		BeginReloadAssembly (93ms)
+	ReloadAssembly (670ms)
+		BeginReloadAssembly (102ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (3ms)
+			DisableScriptedObjects (4ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (14ms)
-		EndReloadAssembly (492ms)
-			LoadAssemblies (54ms)
+			CreateAndSetChildDomain (18ms)
+		EndReloadAssembly (523ms)
+			LoadAssemblies (59ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (164ms)
+			SetupTypeCache (176ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (24ms)
-			SetupLoadedEditorAssemblies (194ms)
+			RebuildScriptCaches (26ms)
+			SetupLoadedEditorAssemblies (198ms)
 				LogAssemblyErrors (0ms)
 				InitializePlatformSupportModulesInManaged (4ms)
 				SetLoadedEditorAssemblies (0ms)
 				RefreshPlugins (0ms)
-				BeforeProcessingInitializeOnLoad (31ms)
-				ProcessInitializeOnLoadAttributes (150ms)
+				BeforeProcessingInitializeOnLoad (32ms)
+				ProcessInitializeOnLoadAttributes (154ms)
 				ProcessInitializeOnLoadMethodAttributes (3ms)
 				AfterProcessingInitializeOnLoad (5ms)
 				EditorAssembliesLoaded (0ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (4ms)
+			AwakeInstancesAfterBackupRestoration (5ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
@@ -114,10 +114,10 @@ Refreshing native plugins compatible for Editor in 0.27 ms, found 2 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 1417 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 137.7 MB.
-System memory in use after: 137.8 MB.
+System memory in use after: 137.7 MB.
 
 Unloading 18 unused Assets to reduce memory usage. Loaded Objects now: 1888.
-Total: 1.538100 ms (FindLiveObjects: 0.084900 ms CreateObjectMapping: 0.030900 ms MarkObjects: 1.365700 ms  DeleteObjects: 0.056100 ms)
+Total: 1.593600 ms (FindLiveObjects: 0.113300 ms CreateObjectMapping: 0.025600 ms MarkObjects: 1.396100 ms  DeleteObjects: 0.058200 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -131,31 +131,52 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/Art Assets/2D/Flora
-  artifactKey: Guid(ddd794c7a4643b747a9c209291c489d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Art Assets/2D/Flora using Guid(ddd794c7a4643b747a9c209291c489d7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd28325360ebb0369b34fcf7293b75c14') in 0.003325 seconds 
+  path: Assets/Art Assets/3D/Fish.fbx
+  artifactKey: Guid(4a18cb380a559aa4ea87f40d95cdfce5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art Assets/3D/Fish.fbx using Guid(4a18cb380a559aa4ea87f40d95cdfce5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7cd4d541f450bc25a28442f0b3d237f1') in 0.278591 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 11.557651 seconds.
-  path: Assets/Art Assets/2D/Flora/Aloe Vera Full.png
-  artifactKey: Guid(0777a084564295345b5451ceff42f713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Art Assets/2D/Flora/Aloe Vera Full.png using Guid(0777a084564295345b5451ceff42f713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94760c348e9d11da13c3d6215b144a37') in 0.092175 seconds 
+  Time since last request: 0.000133 seconds.
+  path: Assets/Art Assets/3D/fish-1.jpg
+  artifactKey: Guid(2a38bc476b653eb45be54429b02f32d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art Assets/3D/fish-1.jpg using Guid(2a38bc476b653eb45be54429b02f32d3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c0e65e65f92a87b1dcce5381306d6f31') in 0.022354 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.009871 seconds.
-  path: Assets/Art Assets/2D/Flora/Aloe Vera Empty.png
-  artifactKey: Guid(0e836557c605e954f84b9ad311860492) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Art Assets/2D/Flora/Aloe Vera Empty.png using Guid(0e836557c605e954f84b9ad311860492) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e46b7e09dc783c768568fbfa65a12c62') in 0.042461 seconds 
+  Time since last request: 0.000325 seconds.
+  path: Assets/Art Assets/3D/Fishing-Rod.fbx
+  artifactKey: Guid(8dfebba3469818143a2a6e6afc690bcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art Assets/3D/Fishing-Rod.fbx using Guid(8dfebba3469818143a2a6e6afc690bcd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '93a2a1185d10983b8b9e832621b6afa0') in 0.149834 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 6.790045 seconds.
-  path: Assets/Art Assets/2D/Flora/Aloe Vera Full.png
-  artifactKey: Guid(0777a084564295345b5451ceff42f713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Art Assets/2D/Flora/Aloe Vera Full.png using Guid(0777a084564295345b5451ceff42f713) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6cf12cc517af44d7f067005963403371') in 0.036338 seconds 
+  Time since last request: 0.000140 seconds.
+  path: Assets/Art Assets/3D/Axe.fbx
+  artifactKey: Guid(a10cb6180b1a57f49be08ba8dba8efeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art Assets/3D/Axe.fbx using Guid(a10cb6180b1a57f49be08ba8dba8efeb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c5c493518be684a5122fdab46a4f3b9b') in 0.011666 seconds 
 ========================================================================
 Received Import Request.
-  Time since last request: 10.474054 seconds.
-  path: Assets/Art Assets/2D/Flora/Aloe Vera Empty.png
-  artifactKey: Guid(0e836557c605e954f84b9ad311860492) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/Art Assets/2D/Flora/Aloe Vera Empty.png using Guid(0e836557c605e954f84b9ad311860492) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '57205b8c7284619009e5e3fa3463d2a1') in 0.011299 seconds 
+  Time since last request: 0.000121 seconds.
+  path: Assets/Art Assets/3D
+  artifactKey: Guid(28e406c5593932a4084394323d8164a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art Assets/3D using Guid(28e406c5593932a4084394323d8164a0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '25ab2ac2c011fd6d94fa97a43b886d5e') in 0.002012 seconds 
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 2.60 ms, found 2 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 11 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 112.4 MB.
+System memory in use after: 112.5 MB.
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 1901.
+Total: 1.835100 ms (FindLiveObjects: 0.122000 ms CreateObjectMapping: 0.026400 ms MarkObjects: 1.678100 ms  DeleteObjects: 0.008200 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 AssetImportWorkerClient::OnTransportError - code=2 error=End of file

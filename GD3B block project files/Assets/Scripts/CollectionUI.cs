@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CollectionUI : MonoBehaviour
 {
     public Image collectionUI;
-    float timePassed;
+    public float timePassed;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,11 +16,17 @@ public class CollectionUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (timePassed < 4)
+        if (timePassed < 3.94f)
         {
             timePassed += Time.deltaTime;
+            collectionUI.fillAmount = timePassed / 3.94f;
+        }
+
+        else
+        {
+            timePassed = 0;
         }
         
-        collectionUI.fillAmount = timePassed / 4;
+        
     }
 }

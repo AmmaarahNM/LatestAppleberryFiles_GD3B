@@ -76,6 +76,14 @@ public class PlayerMovement : MonoBehaviour
             GM.startFishingEnabled = true;
             Debug.Log("Fishing spot");
         }
+
+        if (other.gameObject.tag == "Fireplace")
+        {
+            if (GM.hasWood) //but not logs in place
+            {
+                GM.startFireEnabled = true;
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -93,6 +101,13 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "FishingSpot")
         {
             GM.startFishingEnabled = false;
+        }
+
+        if (other.gameObject.tag == "Fireplace")
+        {
+       
+            GM.startFireEnabled = false;
+       
         }
     }
 

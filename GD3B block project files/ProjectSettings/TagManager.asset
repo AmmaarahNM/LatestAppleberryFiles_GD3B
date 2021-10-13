@@ -9,6 +9,7 @@ TagManager:
   - plant1
   - Wood
   - FishingSpot
+  - Fireplace
   layers:
   - Default
   - TransparentFX

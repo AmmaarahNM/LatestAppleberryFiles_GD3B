@@ -28,10 +28,17 @@ public class GameManager : MonoBehaviour
     public bool collectWoodEnabled;
     public GameObject collectWoodPrompt;
     public GameObject collectingWood;
+    int numberOfLogs;
+    public Text numberOfLogsUI;
 
     public GameObject hasWater;
     public GameObject hasFish;
     public GameObject hasWood;
+
+    public bool startFishingEnabled;
+    public GameObject fishingRodPrompt;
+    public GameObject fishingRod;
+    bool rodActive;
 
     public CharacterController controller;
     public PlayerMovement PM;
@@ -141,7 +148,7 @@ public class GameManager : MonoBehaviour
             collectWoodPrompt.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (woodCollected)
+                if (numberOfLogs >= 10)
                 {
                     Debug.Log("ALREADY COLLECTED WOOD");
                 }
@@ -180,6 +187,32 @@ public class GameManager : MonoBehaviour
         else
         {
             collectWaterPrompt.SetActive(false);
+        }
+
+        if (startFishingEnabled)
+        {
+            fishingRod.SetActive(rodActive);
+            fishingRodPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (rodActive)
+                {
+                    rodActive = false;
+                    controller.enabled = true;
+                }
+
+                else
+                {
+                    rodActive = true;
+                    controller.enabled = false;
+                    //link mouse to fishing rod
+                }
+            }
+        }
+
+        else
+        {
+            fishingRodPrompt.SetActive(false);
         }
 
         /// PLAYER HAS RESOURCES UI
@@ -227,6 +260,8 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         //update wood collected amount
         woodCollected = true; //need this to activate fire task
+        numberOfLogs++;
+        numberOfLogsUI.text = numberOfLogs.ToString() + "/10";
         collectingWood.SetActive(false);//deactivate collecting UI
         
         controller.enabled = true; //Reactivate character controller

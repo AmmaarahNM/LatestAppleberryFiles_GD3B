@@ -8,6 +8,7 @@ TagManager:
   - Camp Location
   - plant1
   - Wood
+  - FishingSpot
   layers:
   - Default
   - TransparentFX

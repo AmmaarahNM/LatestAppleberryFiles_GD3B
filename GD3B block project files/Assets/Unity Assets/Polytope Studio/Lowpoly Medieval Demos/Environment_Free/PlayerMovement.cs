@@ -70,6 +70,12 @@ public class PlayerMovement : MonoBehaviour
         {
             GM.collectWoodEnabled = true;
         }
+
+        if (other.gameObject.tag == "FishingSpot")
+        {
+            GM.startFishingEnabled = true;
+            Debug.Log("Fishing spot");
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -82,6 +88,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Wood")
         {
             GM.collectWoodEnabled = false;
+        }
+
+        if (other.gameObject.tag == "FishingSpot")
+        {
+            GM.startFishingEnabled = false;
         }
     }
 

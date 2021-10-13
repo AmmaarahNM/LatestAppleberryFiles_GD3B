@@ -8,6 +8,8 @@ TagManager:
   - Camp Location
   - plant1
   - Wood
+  - FishingSpot
+  - Fireplace
   layers:
   - Default
   - TransparentFX

@@ -28,10 +28,17 @@ public class GameManager : MonoBehaviour
     public bool collectWoodEnabled;
     public GameObject collectWoodPrompt;
     public GameObject collectingWood;
+    int numberOfLogs;
+    public Text numberOfLogsUI;
 
     public GameObject hasWater;
     public GameObject hasFish;
     public GameObject hasWood;
+
+    public bool startFishingEnabled;
+    public GameObject fishingRodPrompt;
+    public GameObject fishingRod;
+    bool rodActive;
 
     public CharacterController controller;
     public PlayerMovement PM;
@@ -42,6 +49,14 @@ public class GameManager : MonoBehaviour
     public bool journalOpen;
     public MouseLook ML;
     public GameObject journalPrompt;
+
+    public CollectionUI woodScript;
+    public CollectionUI waterScript;
+
+    public bool startFireEnabled;
+    public GameObject setUpLogsPrompt;
+    public bool logsActive;
+    public GameObject fireplaceLogs;
 
     // Start is called before the first frame update
     void Start()
@@ -141,7 +156,7 @@ public class GameManager : MonoBehaviour
             collectWoodPrompt.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if (woodCollected)
+                if (numberOfLogs >= 10)
                 {
                     Debug.Log("ALREADY COLLECTED WOOD");
                 }
@@ -182,6 +197,53 @@ public class GameManager : MonoBehaviour
             collectWaterPrompt.SetActive(false);
         }
 
+        if (startFishingEnabled)
+        {
+            fishingRod.SetActive(rodActive);
+            fishingRodPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (rodActive)
+                {
+                    rodActive = false;
+                    controller.enabled = true;
+                }
+
+                else
+                {
+                    rodActive = true;
+                    controller.enabled = false;
+                    //link mouse to fishing rod
+                }
+            }
+        }
+
+        else
+        {
+            fishingRodPrompt.SetActive(false);
+        }
+
+        if (startFireEnabled && !logsActive)
+        {
+            setUpLogsPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (numberOfLogs >= 3)
+                {
+                    setUpLogsPrompt.SetActive(false);
+                    numberOfLogs -= 3;
+                    fireplaceLogs.SetActive(true);
+                    logsActive = true;
+                }
+
+                else
+                {
+                    //deactivate setup prompt and activate not enough logs UI
+                    Debug.Log("not enough logs!!!");
+                }
+            }
+        }
+
         /// PLAYER HAS RESOURCES UI
         hasWater.SetActive(waterCollected);
         hasWood.SetActive(woodCollected);
@@ -192,6 +254,7 @@ public class GameManager : MonoBehaviour
     public void CollectWater()  //activated when clicking collect water button
     {
         collectWaterEnabled = false;
+        
 
         collectingWater.SetActive(true);  //activate collecting water UI or animation
 
@@ -206,14 +269,17 @@ public class GameManager : MonoBehaviour
         //update water collected amount
         waterCollected = true; //need this to activate treat water task
         collectingWater.SetActive(false);  //deactivate collecting UI
-
+       
         controller.enabled = true; //Reactivate character controller
+        waterScript.timePassed = 0;
 
     }
 
     public void CollectWood()  //activated when clicking collect wood button
     {
+        woodScript.timePassed = 0;
         collectWoodEnabled = false;
+        
 
         collectingWood.SetActive(true); //activate collecting wood UI or animation
         
@@ -227,9 +293,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(4);
         //update wood collected amount
         woodCollected = true; //need this to activate fire task
+        numberOfLogs++;
+        numberOfLogsUI.text = numberOfLogs.ToString() + "/10";
         collectingWood.SetActive(false);//deactivate collecting UI
         
         controller.enabled = true; //Reactivate character controller
+        woodScript.timePassed = 0;
 
     }
 }

@@ -58,9 +58,16 @@ public class GameManager : MonoBehaviour
     public bool logsActive;
     public GameObject fireplaceLogs;
 
+    Vector3 mousePos;
+    public Camera cam;
+    public GameObject sticks;
+    public GameObject stick;
+    bool fireStarted;
+
     // Start is called before the first frame update
     void Start()
     {
+        mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
     }
 
@@ -223,26 +230,55 @@ public class GameManager : MonoBehaviour
             fishingRodPrompt.SetActive(false);
         }
 
-        if (startFireEnabled && !logsActive)
+        if (startFireEnabled)
         {
-            setUpLogsPrompt.SetActive(true);
-            if (Input.GetKeyDown(KeyCode.E))
+            if (!logsActive)
             {
-                if (numberOfLogs >= 3)
+                setUpLogsPrompt.SetActive(true);
+                if (Input.GetKeyDown(KeyCode.E))
                 {
-                    setUpLogsPrompt.SetActive(false);
-                    numberOfLogs -= 3;
-                    fireplaceLogs.SetActive(true);
-                    logsActive = true;
-                }
+                    if (numberOfLogs >= 3)
+                    {
+                        setUpLogsPrompt.SetActive(false);
+                        numberOfLogs -= 3;
+                        numberOfLogsUI.text = numberOfLogs.ToString() + "/10";
+                        fireplaceLogs.SetActive(true);
+                        logsActive = true;
+                    }
 
-                else
+                    else
+                    {
+                        setUpLogsPrompt.SetActive(false);
+                        //deactivate setup prompt and activate not enough logs UI
+                        Debug.Log("not enough logs!!!");
+                    }
+                }
+            }
+
+            else
+            {
+                if (!fireStarted)
                 {
-                    //deactivate setup prompt and activate not enough logs UI
-                    Debug.Log("not enough logs!!!");
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    PM.enabled = false;
+                    ML.enabled = false;
+                    sticks.SetActive(true);
+                    stick.transform.position = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 5));
+                    //lock mouse pos to stick
+                    //deactivate charater controller and mouse look, etc
+                    //prompt player to move stick to start fire
+                    //do a velocity check - activate another bool when reached - fireStarted
                 }
             }
         }
+
+        else
+        {
+            setUpLogsPrompt.SetActive(false);
+        }
+
+        
 
         /// PLAYER HAS RESOURCES UI
         hasWater.SetActive(waterCollected);

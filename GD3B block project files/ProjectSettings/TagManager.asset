@@ -11,6 +11,9 @@ TagManager:
   - FishingSpot
   - Fireplace
   - Axe
+  - aloePlant
+  - gingerPlant
+  - ExplorePoint
   layers:
   - Default
   - TransparentFX

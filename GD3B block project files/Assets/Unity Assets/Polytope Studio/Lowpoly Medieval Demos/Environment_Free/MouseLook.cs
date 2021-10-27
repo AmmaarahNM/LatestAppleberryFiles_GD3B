@@ -28,7 +28,7 @@ public class MouseLook : MonoBehaviour
         playerBody.Rotate(Vector3.up * mouseX);
 
 
-        if (GM.inventoryOpen)
+        if (GM.inventoryOpen ||(GM.logsActive && !GM.fireStarted))
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

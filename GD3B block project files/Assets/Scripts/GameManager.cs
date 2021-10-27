@@ -59,11 +59,13 @@ public class GameManager : MonoBehaviour
     public bool logsActive;
     public GameObject fireplaceLogs;
 
-    Vector3 mousePos;
+    Vector2 mousePos;
     public Camera cam;
     public GameObject sticks;
     public GameObject stick;
-    bool fireStarted;
+    public bool fireStarted;
+    public GameObject fireBadge;
+    public GameObject fireBadgeAchievement;
 
     //Sounds
     public GameObject WaterSound;
@@ -73,6 +75,22 @@ public class GameManager : MonoBehaviour
     public GameObject inventoryBag;
     public bool inventoryOpen;
 
+    public GameObject collectAloePrompt;
+    public GameObject collectGingerPrompt;
+    public bool collectAloeEnabled;
+    public bool collectGingerEnabled;
+
+    public GameObject[] aloeUI;
+    public GameObject aloeInventory;
+    bool aloeCollected;
+
+    public GameObject[] gingerUI;
+    public GameObject gingerInventory;
+    bool gingerCollected;
+
+    public int pointsExplored;
+    public GameObject exploreBadge;
+    public Text exploredArea;
     // Start is called before the first frame update
     void Start()
     {
@@ -80,45 +98,20 @@ public class GameManager : MonoBehaviour
         
     }
 
-
+    
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (inventoryOpen)
-            {
-                inventoryOpen = false;
-            }
-
-            else
-            {
-                inventoryOpen = true;
-            }
+            inventoryOpen = true;
+     
+            ActivateInventory();
+               
         }
 
-        inventoryBag.SetActive(inventoryOpen);
-
-        if (inventoryOpen)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-
-            PM.enabled = false;
-            ML.enabled = false;
-        }
-
-        else
-        {
-
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
-            PM.enabled = true;
-            ML.enabled = true;
-        }
-
-        journal.SetActive(journalOpen);
+      //journal.SetActive(journalOpen);
 
         if (Input.GetKey(KeyCode.C))
         {
@@ -130,19 +123,19 @@ public class GameManager : MonoBehaviour
             compass.SetActive(false);
         }
         /// CONDITION BARS DECREASING OVER TIME
-        if (fed > 1 && !isEating && !journalOpen) //&& no increase bools are true or something like that
+        if (fed > 1 && !isEating && !inventoryOpen)
         {
             fed -= (Time.deltaTime) / 2; 
         }
         fedBar.fillAmount = fed / 100;
 
-        if (hydrated > 1 && !isDrinking && !journalOpen)
+        if (hydrated > 1 && !isDrinking && !inventoryOpen)
         {
             hydrated -= (Time.deltaTime) / 2;
         }
         hydratedBar.fillAmount = hydrated / 100;
 
-        if (energy > 1 && !isResting && !journalOpen)
+        if (energy > 1 && !isResting && !inventoryOpen)
         {
             energy -= (Time.deltaTime) / 2;
         }
@@ -182,6 +175,54 @@ public class GameManager : MonoBehaviour
         }
 
         ///TRIGGER COLLECTING STUFF
+        ///
+
+        if (collectAloeEnabled)
+        {
+            collectAloePrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!aloeCollected)
+                {
+                    AloeCollection();
+                }
+
+                else
+                {
+                    Debug.Log("aloe already collected");
+                }
+                
+            }
+        }
+
+        else
+        {
+            collectAloePrompt.SetActive(false);
+        }
+
+        if (collectGingerEnabled)
+        {
+            collectGingerPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (!gingerCollected)
+                {
+                    GingerCollection();
+                }
+
+                else
+                {
+                    Debug.Log("ginger already collected");
+                }
+
+            }
+        }
+
+        else
+        {
+            collectGingerPrompt.SetActive(false);
+        }
+
         if (collectWoodEnabled)
         {
             collectWoodPrompt.SetActive(true);
@@ -244,6 +285,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     rodActive = true;
+                    fishingRodPrompt.SetActive(false);
                     controller.enabled = false;
                     //link mouse to fishing rod
                 }
@@ -262,10 +304,10 @@ public class GameManager : MonoBehaviour
                 setUpLogsPrompt.SetActive(true);
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    if (numberOfLogs >= 3)
+                    if (numberOfLogs >= 1)
                     {
                         setUpLogsPrompt.SetActive(false);
-                        numberOfLogs -= 3;
+                        numberOfLogs -= 1;
                         numberOfLogsUI.text = numberOfLogs.ToString() + "/10";
                         fireplaceLogs.SetActive(true);
                         WoodPlacementSound.SetActive(true);
@@ -289,13 +331,25 @@ public class GameManager : MonoBehaviour
                     Cursor.visible = true;
                     PM.enabled = false;
                     ML.enabled = false;
-                    CampSound.SetActive(true);
+                  //CampSound.SetActive(true); //wait till fire started
                     sticks.SetActive(true);
-                    stick.transform.position = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 5));
+                  //stick.transform.position = mousePos;
+                     // cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 5));
                     //lock mouse pos to stick
                     //deactivate charater controller and mouse look, etc
                     //prompt player to move stick to start fire
                     //do a velocity check - activate another bool when reached - fireStarted
+                }
+
+                else
+                {
+                    CampSound.SetActive(true); 
+                    sticks.SetActive(false);
+                    fireBadge.SetActive(true);
+                    fireBadgeAchievement.SetActive(true);
+                    //activate fire and particle effect stuff
+                    StartCoroutine(ReactivateMouse());
+                    
                 }
             }
         }
@@ -312,6 +366,105 @@ public class GameManager : MonoBehaviour
         hasWood.SetActive(woodCollected);
         hasFish.SetActive(fishCaught);
 
+    }
+    IEnumerator ReactivateMouse()
+    {
+        yield return new WaitForSeconds(2);
+        fireBadgeAchievement.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        PM.enabled = true;
+        ML.enabled = true;
+    }
+    public void OpenJournal()
+    {
+        inventoryBag.SetActive(false);
+        journalOpen = true;
+        journal.SetActive(true);
+        
+    }
+
+    public void CloseJournal()
+    {
+        inventoryBag.SetActive(true);
+        journalOpen = false;
+        journal.SetActive(false);
+    }
+    public void Exploration()
+    {
+        pointsExplored++;
+        if (pointsExplored < 10)
+        {
+            exploredArea.text = pointsExplored.ToString() + "0%";
+        }
+
+        else
+        {
+            exploredArea.enabled = false;
+            exploreBadge.SetActive(true);
+            //badge unlocked UI
+        }
+        
+    }
+    void ActivateInventory()
+    {
+        if (inventoryOpen)
+        {
+            inventoryBag.SetActive(true);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            PM.enabled = false;
+            ML.enabled = false;
+        }
+
+        else
+        {
+            inventoryBag.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            PM.enabled = true;
+            ML.enabled = true;
+        }
+
+    }
+
+    public void CloseInventory()
+    {
+        Debug.Log("This fn works");
+        inventoryOpen = false;
+        ActivateInventory();
+    }
+
+    public void AloeCollection()
+    {
+        Debug.Log("Aloe collected");
+        collectAloeEnabled = false;
+        foreach (GameObject ui in aloeUI)
+        {
+            ui.SetActive(true);
+        }
+        
+        aloeInventory.SetActive(true);
+        aloeCollected = true;
+
+        //UI text saying new plant found! or aloe collected
+    }
+
+    public void GingerCollection()
+    {
+        Debug.Log("Ginger collected");
+        collectGingerEnabled = false;
+        foreach (GameObject ui in gingerUI)
+        {
+            ui.SetActive(true);
+        }
+
+        gingerInventory.SetActive(true);
+        gingerCollected = true;
+        
+        //UI text display
     }
 
     public void CollectWater()  //activated when clicking collect water button

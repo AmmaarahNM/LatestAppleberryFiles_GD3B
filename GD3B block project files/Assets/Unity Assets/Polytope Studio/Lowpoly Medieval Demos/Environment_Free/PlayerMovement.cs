@@ -18,13 +18,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
 
-    public GameObject plant1_Icon;
-    public GameObject plant2_Icon;
-    public GameObject plant3_Icon;
-
-    
-
-
+  
 
 
     void Update()
@@ -88,6 +82,23 @@ public class PlayerMovement : MonoBehaviour
                 GM.startFireEnabled = true;
             }
         }
+
+        if (other.gameObject.tag == "aloePlant")
+        {
+            GM.collectAloeEnabled = true;
+        }
+
+        if (other.gameObject.tag == "gingerPlant")
+        {
+            GM.collectGingerEnabled = true;
+        }
+
+        if (other.gameObject.tag == "ExplorePoint")
+        {
+            Debug.Log("More area seen");
+            GM.Exploration();
+            Destroy(other);
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -113,23 +124,30 @@ public class PlayerMovement : MonoBehaviour
             GM.startFireEnabled = false;
        
         }
+
+        if (other.gameObject.tag == "aloePlant")
+        {
+            GM.collectAloeEnabled = false;
+        }
+
+        if (other.gameObject.tag == "gingerPlant")
+        {
+            GM.collectGingerEnabled = false;
+        }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "plant1")
+        if (collision.gameObject.tag == "aloePlant")
         {
-            plant1_Icon.SetActive(true);
+            GM.AloeCollection();
         }
 
-        if (collision.gameObject.tag == "plant2")
+        if (collision.gameObject.tag == "gingerPlant")
         {
-            plant2_Icon.SetActive(true);
+            GM.GingerCollection();
         }
 
-        if(collision.gameObject.tag == "plant3")
-        {
-            plant3_Icon.SetActive(true);
-        }
-    }
+
+    }*/
 }

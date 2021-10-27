@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
     public GameObject journal;
     public bool journalOpen;
     public MouseLook ML;
-    public GameObject journalPrompt;
+    //public GameObject journalPrompt;
 
     public CollectionUI woodScript;
     public CollectionUI waterScript;
@@ -70,6 +70,9 @@ public class GameManager : MonoBehaviour
     public GameObject CampSound;
     public GameObject WoodPlacementSound;
 
+    public GameObject inventoryBag;
+    public bool inventoryOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,27 +84,41 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            journalPrompt.SetActive(false);
-            if (journalOpen)
+            if (inventoryOpen)
             {
-                journalOpen = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                inventoryOpen = false;
             }
 
             else
             {
-                journalOpen = true;
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                inventoryOpen = true;
             }
         }
 
+        inventoryBag.SetActive(inventoryOpen);
+
+        if (inventoryOpen)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            PM.enabled = false;
+            ML.enabled = false;
+        }
+
+        else
+        {
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
+            PM.enabled = true;
+            ML.enabled = true;
+        }
+
         journal.SetActive(journalOpen);
-        PM.enabled = !journalOpen;
-        ML.enabled = !journalOpen;
 
         if (Input.GetKey(KeyCode.C))
         {
@@ -115,19 +132,19 @@ public class GameManager : MonoBehaviour
         /// CONDITION BARS DECREASING OVER TIME
         if (fed > 1 && !isEating && !journalOpen) //&& no increase bools are true or something like that
         {
-            fed -= Time.deltaTime;
+            fed -= (Time.deltaTime) / 2; 
         }
         fedBar.fillAmount = fed / 100;
 
         if (hydrated > 1 && !isDrinking && !journalOpen)
         {
-            hydrated -= Time.deltaTime;
+            hydrated -= (Time.deltaTime) / 2;
         }
         hydratedBar.fillAmount = hydrated / 100;
 
         if (energy > 1 && !isResting && !journalOpen)
         {
-            energy -= Time.deltaTime;
+            energy -= (Time.deltaTime) / 2;
         }
         energyBar.fillAmount = energy / 100;
 

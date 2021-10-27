@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    public float mouseSensitivity = 100f;
+    public float mouseSensitivity = 80f;
 
     public Transform playerBody;
 
@@ -28,7 +28,7 @@ public class MouseLook : MonoBehaviour
         playerBody.Rotate(Vector3.up * mouseX);
 
 
-        if (GM.journalOpen)
+        if (GM.inventoryOpen)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;

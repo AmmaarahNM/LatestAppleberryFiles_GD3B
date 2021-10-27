@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviour
     public GameObject hasWater;
     public GameObject hasFish;
     public GameObject hasWood;
+    
 
     public bool startFishingEnabled;
     public GameObject fishingRodPrompt;
@@ -64,12 +65,18 @@ public class GameManager : MonoBehaviour
     public GameObject stick;
     bool fireStarted;
 
+    //Sounds
+    public GameObject WaterSound;
+    public GameObject CampSound;
+    public GameObject WoodPlacementSound;
+
     // Start is called before the first frame update
     void Start()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
     }
+
 
     // Update is called once per frame
     void Update()
@@ -193,6 +200,7 @@ public class GameManager : MonoBehaviour
 
                 else
                 {
+                    WaterSound.SetActive(true);
                     CollectWater();
                 }
                 
@@ -243,6 +251,7 @@ public class GameManager : MonoBehaviour
                         numberOfLogs -= 3;
                         numberOfLogsUI.text = numberOfLogs.ToString() + "/10";
                         fireplaceLogs.SetActive(true);
+                        WoodPlacementSound.SetActive(true);
                         logsActive = true;
                     }
 
@@ -263,6 +272,7 @@ public class GameManager : MonoBehaviour
                     Cursor.visible = true;
                     PM.enabled = false;
                     ML.enabled = false;
+                    CampSound.SetActive(true);
                     sticks.SetActive(true);
                     stick.transform.position = cam.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, 5));
                     //lock mouse pos to stick
@@ -305,7 +315,7 @@ public class GameManager : MonoBehaviour
         //update water collected amount
         waterCollected = true; //need this to activate treat water task
         collectingWater.SetActive(false);  //deactivate collecting UI
-       
+        WaterSound.SetActive(false);
         controller.enabled = true; //Reactivate character controller
         waterScript.timePassed = 0;
 

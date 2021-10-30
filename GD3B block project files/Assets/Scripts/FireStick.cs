@@ -22,6 +22,7 @@ public class FireStick : MonoBehaviour
         if (stickRB.velocity.y *10e14 > 4 || stickRB.velocity.y *10e14 < -4)
         {
             GM.fireStarted = true;
+            GM.ObjectivesCompleted(2);
         }
         Debug.Log(stickRB.velocity.y * 10e6);
     }

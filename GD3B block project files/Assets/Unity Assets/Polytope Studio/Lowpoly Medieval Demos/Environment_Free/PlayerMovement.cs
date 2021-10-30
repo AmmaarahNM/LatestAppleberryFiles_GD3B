@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
             if (GM.hasWood) //but not logs in place
             {
                 GM.startFireEnabled = true;
+                GM.ObjectivesCompleted(0);
             }
         }
 
@@ -98,6 +99,11 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("More area seen");
             GM.Exploration();
             Destroy(other);
+        }
+
+        if (other.gameObject.tag == "Axe")
+        {
+            GM.axeSeen = true;
         }
     }
 
@@ -133,6 +139,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "gingerPlant")
         {
             GM.collectGingerEnabled = false;
+        }
+
+        if (other.gameObject.tag == "Axe")
+        {
+            GM.axeSeen = false;
         }
     }
 

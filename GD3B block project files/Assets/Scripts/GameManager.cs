@@ -34,6 +34,10 @@ public class GameManager : MonoBehaviour
     public GameObject hasWater;
     public GameObject hasFish;
     public GameObject hasWood;
+
+    public GameObject waterInventory;
+    public GameObject fishInventory;
+    public GameObject woodInventory;
     
 
     public bool startFishingEnabled;
@@ -91,10 +95,28 @@ public class GameManager : MonoBehaviour
     public int pointsExplored;
     public GameObject exploreBadge;
     public Text exploredArea;
+
+    public bool gamePaused;
+    public GameObject escapeTab;
+
+    public GameObject[] completeObjectiveTick;
+    bool[] firstTime = new bool[9];
+
+    public GameObject pickUpAxePrompt;
+    public bool axeSeen;
+    public bool axeCollected;
+    public GameObject axe1;
+    public GameObject axe2;
+    bool axeActive;
+    public GameObject activateAxePrompt;
+    public GameObject axeInventory;
+
     // Start is called before the first frame update
     void Start()
     {
         mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Time.timeScale = 1;
+        gamePaused = false;
         
     }
 
@@ -102,6 +124,12 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            gamePaused = true;
+            escapeTab.SetActive(true);
+            Time.timeScale = 0;
+        }
         
         if (Input.GetKeyDown(KeyCode.B))
         {
@@ -125,19 +153,19 @@ public class GameManager : MonoBehaviour
         /// CONDITION BARS DECREASING OVER TIME
         if (fed > 1 && !isEating && !inventoryOpen)
         {
-            fed -= (Time.deltaTime) / 2; 
+            fed -= (Time.deltaTime) / 3; 
         }
         fedBar.fillAmount = fed / 100;
 
         if (hydrated > 1 && !isDrinking && !inventoryOpen)
         {
-            hydrated -= (Time.deltaTime) / 2;
+            hydrated -= (Time.deltaTime) / 4;
         }
         hydratedBar.fillAmount = hydrated / 100;
 
         if (energy > 1 && !isResting && !inventoryOpen)
         {
-            energy -= (Time.deltaTime) / 2;
+            energy -= (Time.deltaTime) / 5;
         }
         energyBar.fillAmount = energy / 100;
 
@@ -223,8 +251,35 @@ public class GameManager : MonoBehaviour
             collectGingerPrompt.SetActive(false);
         }
 
-        if (collectWoodEnabled)
+        if (collectWoodEnabled && !axeSeen)
         {
+            if (axeCollected) //&& inFrontOfTree
+            {
+                if (!axeActive)
+                {
+                    activateAxePrompt.SetActive(true);
+                }
+
+                else
+                {
+                    activateAxePrompt.SetActive(false);
+                }
+
+                if (Input.GetKeyDown(KeyCode.A) && axeCollected)
+                {
+                    if (!axeActive)
+                    {
+                        axe2.SetActive(true);
+                        axeActive = true;
+                    }
+
+                    else
+                    {
+                        axe2.SetActive(false);
+                        axeActive = false;
+                    }
+                }
+            }
             collectWoodPrompt.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -236,6 +291,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     CollectWood();
+                    ObjectivesCompleted(1);
                 }
                 
             }
@@ -244,6 +300,9 @@ public class GameManager : MonoBehaviour
         else
         {
             collectWoodPrompt.SetActive(false);
+            activateAxePrompt.SetActive(false);
+            axe2.SetActive(false);
+            axeActive = false;
         }
 
         if (collectWaterEnabled)
@@ -260,6 +319,7 @@ public class GameManager : MonoBehaviour
                 {
                     WaterSound.SetActive(true);
                     CollectWater();
+                    ObjectivesCompleted(3);
                 }
                 
             }
@@ -268,6 +328,17 @@ public class GameManager : MonoBehaviour
         else
         {
             collectWaterPrompt.SetActive(false);
+        }
+
+        if (axeSeen)
+        {
+            pickUpAxePrompt.SetActive(true);
+            AxeCollection();
+        }
+
+        else
+        {
+            pickUpAxePrompt.SetActive(false);
         }
 
         if (startFishingEnabled)
@@ -312,6 +383,12 @@ public class GameManager : MonoBehaviour
                         fireplaceLogs.SetActive(true);
                         WoodPlacementSound.SetActive(true);
                         logsActive = true;
+
+                        if (numberOfLogs <= 0)
+                        {
+                            woodCollected = false;
+                        }
+
                     }
 
                     else
@@ -366,10 +443,14 @@ public class GameManager : MonoBehaviour
         hasWood.SetActive(woodCollected);
         hasFish.SetActive(fishCaught);
 
+        waterInventory.SetActive(waterCollected);
+        woodInventory.SetActive(woodCollected);
+        fishInventory.SetActive(fishCaught);
+
     }
     IEnumerator ReactivateMouse()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         fireBadgeAchievement.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -516,5 +597,42 @@ public class GameManager : MonoBehaviour
         controller.enabled = true; //Reactivate character controller
         woodScript.timePassed = 0;
 
+    }
+
+    public void AxeCollection()
+    {
+        if (axeSeen)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Destroy(axe1);
+                axe2.SetActive(true);
+                axeActive = true;
+                axeCollected = true;
+                axeInventory.SetActive(true);
+                StartCoroutine(AxeNotSeen());
+                
+                //activate axe in inventory
+                //UI to say press A to pack axe or activate axe etc
+            }
+        }
+    }
+
+    IEnumerator AxeNotSeen()
+    {
+        yield return new WaitForSeconds(0.5f);
+        axeSeen = false;
+    }
+
+    public void ObjectivesCompleted(int number)
+    {
+        if (!firstTime[number])
+        {
+            //UI or audio for objective complete
+            firstTime[number] = true;
+            completeObjectiveTick[number].SetActive(true);
+        }
+
+        
     }
 }

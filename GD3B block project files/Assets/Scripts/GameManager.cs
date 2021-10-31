@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
     //Sounds
     public GameObject WaterSound;
     public GameObject CampSound;
+    public GameObject FireEffect;
     public GameObject WoodPlacementSound;
 
     public GameObject inventoryBag;
@@ -110,6 +111,8 @@ public class GameManager : MonoBehaviour
     bool axeActive;
     public GameObject activateAxePrompt;
     public GameObject axeInventory;
+
+    public bool isFire;
 
     // Start is called before the first frame update
     void Start()
@@ -420,12 +423,15 @@ public class GameManager : MonoBehaviour
 
                 else
                 {
-                    CampSound.SetActive(true); 
+                    //CampSound.SetActive(true);
+                    FireEffect.SetActive(true);
                     sticks.SetActive(false);
                     fireBadge.SetActive(true);
-                    fireBadgeAchievement.SetActive(true);
+                    isFire = true;
+                    //fireBadgeAchievement.SetActive(true);
                     //activate fire and particle effect stuff
                     StartCoroutine(ReactivateMouse());
+                    //StartCoroutine(FireOut());
                     
                 }
             }
@@ -456,6 +462,15 @@ public class GameManager : MonoBehaviour
         Cursor.visible = false;
         PM.enabled = true;
         ML.enabled = true;
+    }
+
+    IEnumerator FireOut()
+    {
+        yield return new WaitForSeconds(10);
+        CampSound.SetActive(false);
+        FireEffect.SetActive(false);
+        isFire = false;
+
     }
     public void OpenJournal()
     {

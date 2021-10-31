@@ -14,6 +14,10 @@ TagManager:
   - aloePlant
   - gingerPlant
   - ExplorePoint
+  - PlumTree
+  - AppleTree
+  - MangoTree
+  - ChemArea
   layers:
   - Default
   - TransparentFX

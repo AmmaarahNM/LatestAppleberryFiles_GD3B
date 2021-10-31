@@ -105,6 +105,26 @@ public class PlayerMovement : MonoBehaviour
         {
             GM.axeSeen = true;
         }
+
+        if (other.gameObject.tag == "PlumTree")
+        {
+            GM.collectPlumEnabled = true;
+        }
+
+        if (other.gameObject.tag == "AppleTree")
+        {
+            GM.collectAppleEnabled = true;
+        }
+
+        if (other.gameObject.tag == "MangoTree")
+        {
+            GM.collectMangoEnabled = true;
+        }
+
+        if (other.gameObject.tag == "ChemArea")
+        {
+            GM.activateChemSet = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -144,6 +164,26 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.tag == "Axe")
         {
             GM.axeSeen = false;
+        }
+
+        if (other.gameObject.tag == "PlumTree")
+        {
+            GM.collectPlumEnabled = false;
+        }
+
+        if (other.gameObject.tag == "AppleTree")
+        {
+            GM.collectAppleEnabled = false;
+        }
+
+        if (other.gameObject.tag == "MangoTree")
+        {
+            GM.collectMangoEnabled = false;
+        }
+
+        if (other.gameObject.tag == "ChemArea")
+        {
+            GM.activateChemSet = false;
         }
     }
 

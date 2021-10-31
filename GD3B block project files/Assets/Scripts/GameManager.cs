@@ -109,10 +109,35 @@ public class GameManager : MonoBehaviour
     public GameObject axe1;
     public GameObject axe2;
     bool axeActive;
-    public GameObject activateAxePrompt;
+    public GameObject axeInBag;
+    //public GameObject activateAxePrompt;
     public GameObject axeInventory;
 
     public bool isFire;
+
+    public bool collectPlumEnabled;
+    public bool collectAppleEnabled;
+    public bool collectMangoEnabled;
+
+    int numberOfApples;
+    int numberOfPlums;
+    int numberOfMangos;
+
+    public GameObject collectApplePrompt;
+    public GameObject collectPlumPrompt;
+    public GameObject collectMangoPrompt;
+
+    public GameObject appleInventory;
+    bool appleCollected;
+    public GameObject plumInventory;
+    bool plumCollected;
+    public GameObject mangoInventory;
+    bool mangoCollected;
+
+    public bool activateChemSet;
+    public GameObject purifyPrompt;
+    public bool chemSetOpen;
+    public GameObject chemistrySet;
 
     // Start is called before the first frame update
     void Start()
@@ -231,6 +256,72 @@ public class GameManager : MonoBehaviour
             collectAloePrompt.SetActive(false);
         }
 
+        if (collectAppleEnabled)
+        {
+            collectApplePrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (numberOfApples < 3)
+                {
+                    CollectApple();
+                }
+
+                else
+                {
+                    Debug.Log("apple storage full");
+                }
+            }
+        }
+
+        else
+        {
+            collectApplePrompt.SetActive(false);
+        }
+
+        if (collectPlumEnabled)
+        {
+            collectPlumPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (numberOfPlums < 3)
+                {
+                    CollectPlum();
+                }
+
+                else
+                {
+                    Debug.Log("plum storage full");
+                }
+            }
+        }
+
+        else
+        {
+            collectPlumPrompt.SetActive(false);
+        }
+
+        if (collectMangoEnabled)
+        {
+            collectMangoPrompt.SetActive(true);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (numberOfMangos < 3)
+                {
+                    CollectMango();
+                }
+
+                else
+                {
+                    Debug.Log("mango storage full");
+                }
+            }
+        }
+
+        else
+        {
+            collectMangoPrompt.SetActive(false);
+        }
+
         if (collectGingerEnabled)
         {
             collectGingerPrompt.SetActive(true);
@@ -256,7 +347,7 @@ public class GameManager : MonoBehaviour
 
         if (collectWoodEnabled && !axeSeen)
         {
-            if (axeCollected) //&& inFrontOfTree
+            /*if (axeCollected) //&& inFrontOfTree
             {
                 if (!axeActive)
                 {
@@ -268,7 +359,7 @@ public class GameManager : MonoBehaviour
                     activateAxePrompt.SetActive(false);
                 }
 
-                if (Input.GetKeyDown(KeyCode.A) && axeCollected)
+               /* if (Input.GetKeyDown(KeyCode.A) && axeCollected)
                 {
                     if (!axeActive)
                     {
@@ -282,7 +373,7 @@ public class GameManager : MonoBehaviour
                         axeActive = false;
                     }
                 }
-            }
+            }*/
             collectWoodPrompt.SetActive(true);
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -303,7 +394,7 @@ public class GameManager : MonoBehaviour
         else
         {
             collectWoodPrompt.SetActive(false);
-            activateAxePrompt.SetActive(false);
+            //activateAxePrompt.SetActive(false);
             axe2.SetActive(false);
             axeActive = false;
         }
@@ -342,6 +433,16 @@ public class GameManager : MonoBehaviour
         else
         {
             pickUpAxePrompt.SetActive(false);
+        }
+
+        if (activateChemSet && waterCollected)
+        {
+            purifyPrompt.SetActive(true);
+        }
+
+        else
+        {
+            purifyPrompt.SetActive(false);
         }
 
         if (startFishingEnabled)
@@ -587,6 +688,39 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void CollectApple()
+    {
+        collectAppleEnabled = false;
+        //picking apple sound
+        appleCollected = true;
+        appleInventory.SetActive(true);
+        numberOfApples++;
+        //ui text display to indicate collected
+        Debug.Log("apple collected");
+    }
+
+    public void CollectPlum()
+    {
+        collectPlumEnabled = false;
+        //picking fruit sound
+        plumCollected = true;
+        plumInventory.SetActive(true);
+        numberOfPlums++;
+        //ui text display to indicate collected
+        Debug.Log("plum collected");
+    }
+
+    public void CollectMango()
+    {
+        collectMangoEnabled = false;
+        //picking fruit sound
+        mangoCollected = true;
+        mangoInventory.SetActive(true);
+        numberOfMangos++;
+        //ui text display to indicate collected
+        Debug.Log("mango collected");
+    }
+
     public void CollectWood()  //activated when clicking collect wood button
     {
         woodScript.timePassed = 0;
@@ -614,6 +748,27 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void ActivateChemSet()
+    {
+        if (activateChemSet && waterCollected)
+        {
+            if (chemSetOpen)
+            {
+                chemistrySet.SetActive(false);
+                controller.enabled = true;
+                chemSetOpen = false;
+            }
+
+            else
+            {
+                chemistrySet.SetActive(true);
+                controller.enabled = false;
+                chemSetOpen = true;
+            }
+            
+        }
+    }
+
     public void AxeCollection()
     {
         if (axeSeen)
@@ -625,6 +780,7 @@ public class GameManager : MonoBehaviour
                 axeActive = true;
                 axeCollected = true;
                 axeInventory.SetActive(true);
+                axeInBag.SetActive(true);
                 StartCoroutine(AxeNotSeen());
                 
                 //activate axe in inventory
@@ -637,6 +793,28 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         axeSeen = false;
+        yield return new WaitForSeconds(2f);
+        axeInBag.SetActive(false);
+    }
+
+    public void ActivateAxe()
+    {
+        if (axeCollected)
+        {
+            if (axeActive)
+            {
+                axe2.SetActive(false);
+                axeActive = false;
+            }
+
+            else
+            {
+                axe2.SetActive(true);
+                axeActive = true;
+            }
+
+            CloseInventory();
+        }
     }
 
     public void ObjectivesCompleted(int number)

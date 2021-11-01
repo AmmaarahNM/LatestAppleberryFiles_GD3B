@@ -13,7 +13,7 @@ public class EscapeTabManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void QuitGame()
+    public void ToMenu()
     {
         //GM.gamePaused = false;
         GM.escapeTab.SetActive(false);
@@ -21,11 +21,8 @@ public class EscapeTabManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void RestartLevel()
+    public void QuitGame()
     {
-        GM.gamePaused = false;
-        GM.escapeTab.SetActive(false);
-        Time.timeScale = 1;
-        SceneManager.LoadScene(1);
+        Application.Quit();
     }
 }
